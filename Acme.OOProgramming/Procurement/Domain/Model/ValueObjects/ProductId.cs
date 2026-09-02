@@ -1,20 +1,26 @@
 namespace Acme.OOProgramming.Procurement.Domain.Model.ValueObjects;
 
-public record ProductId
+/// <summary>
+/// Represents a product identifier value object in the Procurement bounded context. 
+/// </summary>
+public readonly record struct ProductId
 {
-    public Guid Id { get; init; }
-
-    public ProductId(Guid id)
+    public Guid Id
     {
-        if (id == Guid.Empty) 
-            throw new ArgumentException("Supplier id cannot be empty", nameof(id));
-        
-        Id = id;
-        
+        get;
+        init
+        {
+            if (value == Guid.Empty)
+                throw new ArgumentException("Product ID cannot be an empty GUID.", nameof(value));
+            field = value;
+        }
     }
     
-    public static ProductId New() => new ProductId(Guid.NewGuid());
+    public ProductId() => throw new InvalidOperationException("ProductId must be initialized with a non-empty GUID.");
+    
+    public ProductId(Guid id) => Id = id;
+    
+    public static ProductId New() => new(Guid.CreateVersion7());
     
     public override string ToString() => Id.ToString();
-    
 }

@@ -2,6 +2,9 @@
 
 namespace Acme.OOProgramming.Shared.Presentation;
 
+/// <summary>
+/// Provides console formatting methods for value objects. 
+/// </summary>
 public static class ConsoleFormatting
 {
     extension(Money money)
